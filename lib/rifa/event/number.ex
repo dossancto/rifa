@@ -5,7 +5,7 @@ defmodule Rifa.Event.Number do
   schema "numbers" do
     field :avaible, :boolean, default: true
     field :number, :integer
-    field :owner, :id
+    field :owner_instagram, :string
     field :rifa_numbers, :id
 
     timestamps()
@@ -14,7 +14,7 @@ defmodule Rifa.Event.Number do
   @doc false
   def changeset(number, attrs) do
     number
-    |> cast(attrs, [:number, :avaible, :rifa_numbers, :owner])
-    |> validate_required([:number, :avaible, :rifa_numbers, :owner])
+    |> cast(attrs, [:number, :avaible, :rifa_numbers, :owner_instagram])
+    |> validate_required([:number, :avaible, :rifa_numbers, :owner_instagram])
   end
 end

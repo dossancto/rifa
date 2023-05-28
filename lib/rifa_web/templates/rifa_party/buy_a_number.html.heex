@@ -11,6 +11,10 @@
   <%= number_input f, :number %>
   <%= error_tag f, :number %>
 
+  <%= label f, :owner_instagram %>
+  <%= text_input f, :owner_instagram %>
+  <%= error_tag f, :owner_instagram %>
+
   <%= hidden_input f, :rifa_numbers, [value: @rifa_party.id] %>
 
   <div>

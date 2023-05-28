@@ -76,11 +76,9 @@ defmodule RifaWeb.RifaPartyController do
   end
 
   def buy_rifa(conn, %{"number" => number}) do
-    user_id = conn.assigns[:current_user].id
-
     num =
       Map.put(number, "avaible", false)
-      |> Map.put("owner", user_id)
+      |> Map.put("owner", number["owner_instagram"])
 
     case Event.create_number_rifa(num) do
       {:ok, _n} ->
@@ -90,8 +88,8 @@ defmodule RifaWeb.RifaPartyController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "show.html",
-          rifa_party: num["rifa_numbers"],
-          numbers: num["number"],
+          rifa_party: Event.get_rifa_party!(num["rifa_numbers"]),
+          numbers: Event.get_numbers_from_rifa(num["rifa_numbers"]),
           changeset: changeset,
           action: Routes.rifa_party_path(conn, :buy_rifa)
         )

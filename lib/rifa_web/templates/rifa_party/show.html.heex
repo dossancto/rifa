@@ -11,7 +11,7 @@
   <% end %>
 
   <%= for numb <- @numbers do %>
-    <p><%= numb.number %></p>
+    <p><%= numb.number %> - <%= numb.owner_instagram %></p>
   <% end %>
 
 <%= if @current_user != nil do %>
