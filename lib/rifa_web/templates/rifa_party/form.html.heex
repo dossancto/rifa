@@ -13,6 +13,10 @@
   <%= text_input f, :description %>
   <%= error_tag f, :description %>
 
+  <%= label f, :max_numbers %>
+  <%= number_input f, :max_numbers %>
+  <%= error_tag f, :max_numbers %>
+
   <%= label f, :start_at %>
   <%= datetime_select f, :start_at %>
   <%= error_tag f, :start_at %>

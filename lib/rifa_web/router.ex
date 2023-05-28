@@ -18,12 +18,20 @@ defmodule RifaWeb.Router do
   end
 
   scope "/", RifaWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    resources "/rifas", RifaPartyController, except: [:index, :show]
+  end
+
+  scope "/", RifaWeb do
     pipe_through :browser
 
     get "/", PageController, :index
 
-    resources "/rifas", RifaPartyController
+    resources "/rifas", RifaPartyController, only: [:index, :show]
+    post "rifas/buy_rifa", RifaPartyController, :buy_rifa
   end
+
 
   # Other scopes may use custom stacks.
   # scope "/api", RifaWeb do

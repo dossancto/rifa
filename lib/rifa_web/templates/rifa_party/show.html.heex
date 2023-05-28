@@ -1,28 +1,31 @@
-<h1>Show Rifa party</h1>
-
-<ul>
-
-  <li>
-    <strong>Title:</strong>
+<h1>
     <%= @rifa_party.title %>
-  </li>
+</h1>
 
-  <li>
-    <strong>Description:</strong>
+  <p>
     <%= @rifa_party.description %>
-  </li>
+  </p>
 
-  <li>
-    <strong>Start at:</strong>
-    <%= @rifa_party.start_at %>
-  </li>
+<.form let={f} for={@changeset} action={@action}>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
 
-  <li>
-    <strong>End at:</strong>
-    <%= @rifa_party.end_at %>
-  </li>
+  <%= label f, :number %>
+  <%= number_input f, :number %>
+  <%= error_tag f, :number %>
 
-</ul>
+  <%= hidden_input f, :rifa_numbers, [value: @rifa_party.id] %>
+
+  <div>
+    <%= submit "Save" %>
+  </div>
+</.form>
+  <%= for numb <- @numbers do %>
+    <p><%= numb.number %></p>
+  <% end %>
 
 <span><%= link "Edit", to: Routes.rifa_party_path(@conn, :edit, @rifa_party) %></span> |
 <span><%= link "Back", to: Routes.rifa_party_path(@conn, :index) %></span>

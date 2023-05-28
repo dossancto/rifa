@@ -28,7 +28,17 @@ defmodule RifaWeb.RifaPartyController do
 
   def show(conn, %{"id" => id}) do
     rifa_party = Event.get_rifa_party!(id)
-    render(conn, "show.html", rifa_party: rifa_party)
+    numbers = Event.get_numbers_from_rifa(id)
+    # changeset = Event.change_rifa_parjy(rifa_party)
+    changeset = Event.change_number(%Event.Number{})
+
+    conn
+    |> render("show.html",
+      rifa_party: rifa_party,
+      numbers: numbers,
+      changeset: changeset,
+      action: Routes.rifa_party_path(conn, :buy_rifa)
+    )
   end
 
   def edit(conn, %{"id" => id}) do
@@ -58,5 +68,28 @@ defmodule RifaWeb.RifaPartyController do
     conn
     |> put_flash(:info, "Rifa party deleted successfully.")
     |> redirect(to: Routes.rifa_party_path(conn, :index))
+  end
+
+  def buy_rifa(conn, %{"number" => number}) do
+    user_id = conn.assigns[:current_user].id
+
+    num =
+      Map.put(number, "avaible", false)
+      |> Map.put("owner", user_id)
+
+    case Event.create_number_rifa(num) do
+      {:ok, _n} ->
+        conn
+        |> put_flash(:info, "Rifa number submitted successfully")
+        |> redirect(to: Routes.rifa_party_path(conn, :index))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "show.html",
+          rifa_party: num["rifa_numbers"],
+          numbers: num["number"],
+          changeset: changeset,
+          action: Routes.rifa_party_path(conn, :buy_rifa)
+        )
+    end
   end
 end
