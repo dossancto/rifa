@@ -1,0 +1,28 @@
+<h1>Show Rifa party</h1>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @rifa_party.title %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @rifa_party.description %>
+  </li>
+
+  <li>
+    <strong>Start at:</strong>
+    <%= @rifa_party.start_at %>
+  </li>
+
+  <li>
+    <strong>End at:</strong>
+    <%= @rifa_party.end_at %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.rifa_party_path(@conn, :edit, @rifa_party) %></span> |
+<span><%= link "Back", to: Routes.rifa_party_path(@conn, :index) %></span>

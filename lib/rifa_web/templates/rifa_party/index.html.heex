@@ -1,0 +1,32 @@
+<h1>Listing Rifas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Start at</th>
+      <th>End at</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for rifa_party <- @rifas do %>
+    <tr>
+      <td><%= rifa_party.title %></td>
+      <td><%= rifa_party.description %></td>
+      <td><%= rifa_party.start_at %></td>
+      <td><%= rifa_party.end_at %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.rifa_party_path(@conn, :show, rifa_party) %></span>
+        <span><%= link "Edit", to: Routes.rifa_party_path(@conn, :edit, rifa_party) %></span>
+        <span><%= link "Delete", to: Routes.rifa_party_path(@conn, :delete, rifa_party), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Rifa party", to: Routes.rifa_party_path(@conn, :new) %></span>

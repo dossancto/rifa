@@ -1,0 +1,5 @@
+<h1>Edit Rifa party</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.rifa_party_path(@conn, :update, @rifa_party)) %>
+
+<span><%= link "Back", to: Routes.rifa_party_path(@conn, :index) %></span>
