@@ -18,20 +18,21 @@ defmodule RifaWeb.Router do
   end
 
   scope "/", RifaWeb do
-    pipe_through [:browser, :require_authenticated_user]
+    pipe_through([:browser, :require_authenticated_user])
 
-    resources "/rifas", RifaPartyController, except: [:index, :show]
+    resources("/rifas", RifaPartyController, except: [:index, :show])
+
+    get "/rifas/:id/buynumber", RifaPartyController, :buy_a_number
   end
 
   scope "/", RifaWeb do
-    pipe_through :browser
+    pipe_through(:browser)
 
     get "/", PageController, :index
 
-    resources "/rifas", RifaPartyController, only: [:index, :show]
+    resources("/rifas", RifaPartyController, only: [:index, :show])
     post "rifas/buy_rifa", RifaPartyController, :buy_rifa
   end
-
 
   # Other scopes may use custom stacks.
   # scope "/api", RifaWeb do
@@ -49,9 +50,9 @@ defmodule RifaWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/" do
-      pipe_through :browser
+      pipe_through(:browser)
 
-      live_dashboard "/dashboard", metrics: RifaWeb.Telemetry
+      live_dashboard("/dashboard", metrics: RifaWeb.Telemetry)
     end
   end
 
@@ -61,7 +62,7 @@ defmodule RifaWeb.Router do
   # node running the Phoenix server.
   if Mix.env() == :dev do
     scope "/dev" do
-      pipe_through :browser
+      pipe_through(:browser)
 
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
@@ -70,7 +71,7 @@ defmodule RifaWeb.Router do
   ## Authentication routes
 
   scope "/", RifaWeb do
-    pipe_through [:browser, :redirect_if_user_is_authenticated]
+    pipe_through([:browser, :redirect_if_user_is_authenticated])
 
     get "/users/register", UserRegistrationController, :new
     post "/users/register", UserRegistrationController, :create
@@ -83,7 +84,7 @@ defmodule RifaWeb.Router do
   end
 
   scope "/", RifaWeb do
-    pipe_through [:browser, :require_authenticated_user]
+    pipe_through([:browser, :require_authenticated_user])
 
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
@@ -91,7 +92,7 @@ defmodule RifaWeb.Router do
   end
 
   scope "/", RifaWeb do
-    pipe_through [:browser]
+    pipe_through([:browser])
 
     delete "/users/log_out", UserSessionController, :delete
     get "/users/confirm", UserConfirmationController, :new

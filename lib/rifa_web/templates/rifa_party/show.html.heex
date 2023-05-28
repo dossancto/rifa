@@ -6,26 +6,16 @@
     <%= @rifa_party.description %>
   </p>
 
-<.form let={f} for={@changeset} action={@action}>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
-    </div>
+  <%= if @current_user != nil do %>
+      <h5><%= link "Buy", to: Routes.rifa_party_path(@conn, :buy_a_number, @rifa_party) %></h5>
   <% end %>
 
-  <%= label f, :number %>
-  <%= number_input f, :number %>
-  <%= error_tag f, :number %>
-
-  <%= hidden_input f, :rifa_numbers, [value: @rifa_party.id] %>
-
-  <div>
-    <%= submit "Save" %>
-  </div>
-</.form>
   <%= for numb <- @numbers do %>
     <p><%= numb.number %></p>
   <% end %>
 
-<span><%= link "Edit", to: Routes.rifa_party_path(@conn, :edit, @rifa_party) %></span> |
+<%= if @current_user != nil do %>
+  <span><%= link "Edit", to: Routes.rifa_party_path(@conn, :edit, @rifa_party) %></span> |
+<% end %>
+
 <span><%= link "Back", to: Routes.rifa_party_path(@conn, :index) %></span>

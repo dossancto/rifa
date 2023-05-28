@@ -1,0 +1,20 @@
+<h1>Buy a Number</h1>
+
+<.form let={f} for={@changeset} action={@action}>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= label f, :number %>
+  <%= number_input f, :number %>
+  <%= error_tag f, :number %>
+
+  <%= hidden_input f, :rifa_numbers, [value: @rifa_party.id] %>
+
+  <div>
+    <%= submit "Save" %>
+  </div>
+  <span><%= link "Back", to: Routes.rifa_party_path(@conn, :show, @rifa_party) %></span>
+</.form>

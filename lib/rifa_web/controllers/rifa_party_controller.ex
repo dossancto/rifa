@@ -6,7 +6,9 @@ defmodule RifaWeb.RifaPartyController do
 
   def index(conn, _params) do
     rifas = Event.list_rifas()
-    render(conn, "index.html", rifas: rifas)
+    {:ok, current_datetime} = DateTime.now("Etc/UTC")
+
+    render(conn, "index.html", rifas: rifas, current_datetime: current_datetime)
   end
 
   def new(conn, _params) do
@@ -32,11 +34,14 @@ defmodule RifaWeb.RifaPartyController do
     # changeset = Event.change_rifa_parjy(rifa_party)
     changeset = Event.change_number(%Event.Number{})
 
+    {:ok, current_datetime} = DateTime.now("Etc/UTC")
+
     conn
     |> render("show.html",
       rifa_party: rifa_party,
       numbers: numbers,
       changeset: changeset,
+      current_datetime: current_datetime,
       action: Routes.rifa_party_path(conn, :buy_rifa)
     )
   end
@@ -91,5 +96,16 @@ defmodule RifaWeb.RifaPartyController do
           action: Routes.rifa_party_path(conn, :buy_rifa)
         )
     end
+  end
+
+  def buy_a_number(conn, %{"id" => id}) do
+    changeset = Event.change_number(%Event.Number{})
+    rifa_party = Event.get_rifa_party!(id)
+
+    render(conn, "buy_a_number.html",
+      changeset: changeset,
+      rifa_party: rifa_party,
+      action: Routes.rifa_party_path(conn, :buy_rifa)
+    )
   end
 end
