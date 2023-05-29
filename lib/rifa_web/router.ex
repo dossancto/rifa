@@ -28,7 +28,7 @@ defmodule RifaWeb.Router do
   scope "/", RifaWeb do
     pipe_through(:browser)
 
-    get "/", PageController, :index
+    get "/", RifaPartyController, :index
 
     resources("/rifas", RifaPartyController, only: [:index, :show])
     post "rifas/buy_rifa", RifaPartyController, :buy_rifa
