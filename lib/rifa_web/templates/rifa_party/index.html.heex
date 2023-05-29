@@ -18,7 +18,9 @@
   </thead>
   <tbody>
 <%= for rifa_party <- @rifas do %>
-  <%= if NaiveDateTime.compare(DateTime.to_naive(@current_datetime), rifa_party.start_at) == :gt or @current_user != nil do %>
+    
+
+  <%= if (date_later(rifa_party.start_at) and date_early(rifa_party.end_at)) or @current_user != nil do %>
     <tr>
       <td><%= rifa_party.title %></td>
       <td><%= rifa_party.description %></td>

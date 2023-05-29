@@ -18,11 +18,11 @@
   <%= error_tag f, :max_numbers %>
 
   <%= label f, :start_at %>
-  <%= datetime_select f, :start_at %>
+  <%= datetime_select_this_year f, :start_at, [year: [options: 2023..2010]] %>
   <%= error_tag f, :start_at %>
 
   <%= label f, :end_at %>
-  <%= datetime_select f, :end_at %>
+  <%= datetime_select_this_year f, :end_at %>
   <%= error_tag f, :end_at %>
 
   <div>

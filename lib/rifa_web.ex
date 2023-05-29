@@ -94,6 +94,7 @@ defmodule RifaWeb do
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
+      import RifaWeb.InputHelpers
 
       import RifaWeb.ErrorHelpers
       import RifaWeb.Gettext
