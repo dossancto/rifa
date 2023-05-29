@@ -99,10 +99,12 @@ defmodule RifaWeb.RifaPartyController do
   def buy_a_number(conn, %{"id" => id}) do
     changeset = Event.change_number(%Event.Number{})
     rifa_party = Event.get_rifa_party!(id)
+    numbers = Event.get_numbers_from_rifa(id)
 
     render(conn, "buy_a_number.html",
       changeset: changeset,
       rifa_party: rifa_party,
+      numbers: numbers,
       action: Routes.rifa_party_path(conn, :buy_rifa)
     )
   end

@@ -7,15 +7,25 @@
     </div>
   <% end %>
 
-  <%= label f, :number %>
-  <%= number_input f, :number %>
-  <%= error_tag f, :number %>
-
   <%= label f, :owner_instagram %>
   <%= text_input f, :owner_instagram %>
   <%= error_tag f, :owner_instagram %>
 
   <%= hidden_input f, :rifa_numbers, [value: @rifa_party.id] %>
+
+  <%= for num <- 1..@rifa_party.max_numbers do %>
+
+  <ul>
+    <%= num %>
+
+    <%= if Enum.any?(@numbers, fn ticket -> ticket.number == num end)do %>
+      <%= radio_button f, :number, num, [disabled: true] %>
+    <% else %>
+      <%= radio_button f, :number, num %>
+    <% end %>
+  </ul>
+
+  <% end %>
 
   <div>
     <%= submit "Save" %>
