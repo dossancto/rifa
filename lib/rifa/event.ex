@@ -102,7 +102,17 @@ defmodule Rifa.Event do
 
   """
   def delete_rifa_party(%RifaParty{} = rifa_party) do
+    delete_rifa_numbers(rifa_party.id)
     Repo.delete(rifa_party)
+  end
+
+  def delete_rifa_numbers(rifa_id) do
+    query =
+      from(n in Number,
+        where: n.rifa_numbers == ^rifa_id
+      )
+
+    Repo.delete_all(query)
   end
 
   @doc """
