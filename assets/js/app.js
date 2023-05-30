@@ -43,3 +43,13 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
+let radio = document.querySelectorAll(".tag_radion");
+let label = document.querySelector(".cards__container-items");
+
+radio.addEventListener('click', () => {
+
+
+    label.style.color = "#fff"
+
+   
+})
