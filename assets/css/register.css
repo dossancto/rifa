@@ -23,6 +23,19 @@
     gap: 4rem;
 }
 
+.form__main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 700px;
+    gap: 4rem;
+}
+
+.form__default__input{
+  width: 80%;
+}
+
 .register__component {
     width: 50%;
 }

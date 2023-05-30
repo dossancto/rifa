@@ -3,6 +3,7 @@
 @import "./buy_number.css";
 @import "./show.css";
 @import "./register.css";
+@import "./rifa.css";
 
 /* Alerts and form errors used by phx.new */
 .alert {

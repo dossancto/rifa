@@ -1,27 +1,37 @@
-<h1>Log in</h1>
+<section class="register__container">
 
-<.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
-  <%= if @error_message do %>
-    <div class="alert alert-danger">
-      <p><%= @error_message %></p>
+  <.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user} class = "register__form">
+    <div class="register__main">
+      <h1>Log in</h1>
+
+      <%= if @error_message do %>
+        <div class="alert alert-danger">
+          <p><%= @error_message %></p>
+        </div>
+      <% end %>
+
+      <div class="register__component">
+        <%= label f, :email %>
+        <%= email_input f, :email, required: true %>
+      </div>
+
+      <div class="register__component">
+        <%= label f, :password %>
+        <%= password_input f, :password, required: true %>
+      </div>
+
+      <div class="register__component">
+        <%= label f, :remember_me, "Keep me logged in for 60 days" %>
+        <%= checkbox f, :remember_me %>
+      </div>
+
+      <div> <%= submit "Log in" %> </div>
+      <p> <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> </p>
     </div>
-  <% end %>
+  </.form>
 
-  <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
-
-  <%= label f, :password %>
-  <%= password_input f, :password, required: true %>
-
-  <%= label f, :remember_me, "Keep me logged in for 60 days" %>
-  <%= checkbox f, :remember_me %>
-
-  <div>
-    <%= submit "Log in" %>
+  <div class="register__imagem">
+    <img src={Routes.static_path(@conn, "/images/fogueira.png" )} alt="Fogueira" class=""/>
   </div>
-</.form>
 
-<p>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
-  <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
-</p>
+</section>

@@ -1,44 +1,29 @@
-<h1>Listing Rifas</h1>
-
-<%= if @current_user != nil do %>
-  <span><%= link "New Rifa party", to: Routes.rifa_party_path(@conn, :new) %></span>
-<% end %>
-
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Start at</th>
-      <th>End at</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for rifa_party <- @rifas do %>
-    
-
-  <%= if (date_later(rifa_party.start_at) and date_early(rifa_party.end_at)) or @current_user != nil do %>
-    <tr>
-      <td><%= rifa_party.title %></td>
-      <td><%= rifa_party.description %></td>
-      <td><%= rifa_party.start_at %></td>
-      <td><%= rifa_party.end_at %></td>
-
-    <td>
-      <span><%= link "Show", to: Routes.rifa_party_path(@conn, :show, rifa_party) %></span>
-      <%= if @current_user != nil do %>
-        <span><%= link "Buy", to: Routes.rifa_party_path(@conn, :buy_a_number, rifa_party) %></span>
-        <span><%= link "Edit", to: Routes.rifa_party_path(@conn, :edit, rifa_party) %></span>
-        <span><%= link "Delete", to: Routes.rifa_party_path(@conn, :delete, rifa_party), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      <% end %>
-    </td>
-
-    </tr>
+<div class="rifa__container">
+  <%= if @current_user != nil do %>
+    <div class="rifa__controll">
+      <span><%= link "Nova Rifa", to: Routes.rifa_party_path(@conn, :new) %></span>
+    </div>
   <% end %>
-<% end %>
-  </tbody>
-</table>
 
+  <div class="rifa__items">
+    <%= for rifa <- @rifas do %>
+    <div class="rifa__item">
+      <%= if (date_later(rifa.start_at) and date_early(rifa.end_at)) or @current_user != nil do %>
+        <h1>
+          <%= rifa.title %>
+        </h1>
+        <p>
+          <%= rifa.description %>
+        </p>
+        <%= link "Comprar", to: Routes.rifa_party_path(@conn, :show, rifa) %>
+
+        <%= if rifa.img_background != nil do %>
+          <img src={Routes.static_path(@conn, "/images/" <> rifa.img_background)} alt="Phoenix Framework Logo" class="rifa__shadow"/>
+        <% else %>
+          <div class="rifa__shadow"></div>
+        <% end %>
+      <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -95,7 +95,7 @@ body {
 }
 
 input[type=radio]:checked ~.cards__container-items{
-  background: var(--clr-secudary);
+  background: var(--clr-blue);
 }
 
 .cards__container-items:hover {

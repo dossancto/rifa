@@ -1,9 +1,6 @@
 <section class="register__container">
-
   <.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)} class = "register__form">
-
     <div class="register__main">
-
 
       <h1>Registre-se</h1>
   
@@ -31,51 +28,28 @@
   
       <div class="register__component">
   
-        <%= label f, :instagram %>
-        <%= text_input f, :instagram, required: true %>
+        <%= label f, :Instagram, class: "insta" %>
+        <%= text_input f, :owner_instagram, required: true %>
         <%= error_tag f, :instagram %>
   
   
       </div>
     
       <div class="register__component">
-  
         <%= label f, :fullname %>
         <%= text_input f, :fullname, required: true %>
         <%= error_tag f, :fullname %>
-  
       </div>
     
       <div>
         <%= submit "Register" %>
       </div>
   
-      <p>
-        <%= link "Log in", to: Routes.user_session_path(@conn, :new) %> |
-        <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
-      </p>
-
-
+      <p> <%= link "Log in", to: Routes.user_session_path(@conn, :new) %> </p>
     </div>
-
-
   </.form>
-  
+
   <div class="register__imagem">
-
-
-
-
-
+    <img src={Routes.static_path(@conn, "/images/fogueira.png" )} alt="Fogueira" class=""/>
   </div>
-
-
 </section>
-
-
-
-
-
-
-
-
