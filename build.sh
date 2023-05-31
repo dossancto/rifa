@@ -11,3 +11,5 @@ MIX_ENV=prod mix ecto.migrate
 
 # Build the release and overwrite the existing release directory
 MIX_ENV=prod mix release --overwrite
+
+MIX_ENV=prod mix phx.digest
