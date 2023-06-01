@@ -9,6 +9,7 @@ defmodule Rifa.Accounts.User do
     field(:confirmed_at, :naive_datetime)
     field(:instagram, :string)
     field(:fullname, :string)
+    field(:is_adm, :boolean, default: false)
 
     timestamps()
   end
@@ -32,7 +33,7 @@ defmodule Rifa.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password, :instagram, :fullname])
+    |> cast(attrs, [:email, :password, :instagram, :fullname, :is_adm])
     |> validate_email()
     |> validate_password(opts)
   end

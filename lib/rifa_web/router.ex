@@ -17,8 +17,12 @@ defmodule RifaWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :adm do
+    plug :require_adm
+  end
+
   scope "/", RifaWeb do
-    pipe_through([:browser, :require_authenticated_user])
+    pipe_through([:browser, :require_authenticated_user, :adm])
 
     resources("/rifas", RifaPartyController, except: [:index, :show])
 

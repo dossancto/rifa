@@ -1,5 +1,5 @@
 <div class="rifa__container">
-  <%= if @current_user != nil do %>
+  <%= if @current_user != nil and @current_user.is_adm do %>
     <div class="rifa__controll">
       <span><%= link "Nova Rifa", to: Routes.rifa_party_path(@conn, :new) %></span>
     </div>
