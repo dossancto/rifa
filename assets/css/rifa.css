@@ -14,6 +14,11 @@
   height: 100vh;
   flex-wrap: wrap;
 }
+
+.rifa__container img {
+  object-fit: cover;
+}
+
 .rifa__items{
   width: 100%;
   display: flex;
