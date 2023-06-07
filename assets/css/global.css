@@ -6,10 +6,12 @@
     --clr-secudary: #000;
     --clr-theme: #FF245E;
     --clr-input: #FF4F7E;
+    --clr-bck: #ad7584;
     --clr-shadow: #00000031;
     --clr-border: #5F5C5C;
     --clr-black: #313131;
     --clr-blue: #2484ff;
+    --clr-card: #ffffff31;
 
     --poppins: 'Poppins', sans-serif;
 }

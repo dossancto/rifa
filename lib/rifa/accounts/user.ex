@@ -38,6 +38,11 @@ defmodule Rifa.Accounts.User do
     |> validate_password(opts)
   end
 
+  def adm_changeset(user, attrs, opts \\ []) do
+    user
+    |> cast(attrs, [:is_adm])
+  end
+
   defp validate_email(changeset) do
     changeset
     |> validate_required([:email])

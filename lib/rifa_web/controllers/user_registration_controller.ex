@@ -27,4 +27,17 @@ defmodule RifaWeb.UserRegistrationController do
         render(conn, "new.html", changeset: changeset)
     end
   end
+
+  def add_admin(conn, %{"user" => user_params}) do
+    case Accounts.add_adm(user_params["email"]) do
+      {:ok, user} ->
+        conn
+        |> put_flash(:info, "User created successfully.")
+        |> UserAuth.log_in_user(user)
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "view_admin.html", changeset: changeset)
+    end
+  end
+
 end

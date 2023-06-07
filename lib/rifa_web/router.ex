@@ -27,6 +27,9 @@ defmodule RifaWeb.Router do
     resources("/rifas", RifaPartyController, except: [:index, :show])
 
     get "/rifas/:id/buynumber", RifaPartyController, :buy_a_number
+    get "/rifas/:id/show_admin", RifaPartyController, :show_admin
+    get "/rifas/adm", RifaPartyController, :view_admin
+    post "/users/add_admin", UserRegistrationController, :add_admin
   end
 
   scope "/", RifaWeb do

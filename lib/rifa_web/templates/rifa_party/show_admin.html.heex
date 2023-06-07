@@ -1,0 +1,55 @@
+<section class="view_container">
+
+    <div class="view__header">
+      
+      <h1>
+        Arraiá BG
+      </h1>
+    
+      <p>
+        Evento de arrecadação para a festa junina. <span>Escolha o seu número.</span>
+      </p>
+  
+    </div>
+  
+    <div class="cards__layout">
+  
+      <div class="gridbox__layout"> 
+  
+        <%= for num <- @numbers do %>
+            <%= num.number %>
+            <div class="cards__layout-items card__fixed">
+                <%= num.owner_instagram %>
+            </div>
+
+            <a href="https://ig.me/m/gremio.chapaquente">
+              <div class="cards__layout-items">
+              </div>
+            </a>
+  
+        <% end %>
+      </div>
+  
+    </div>
+  
+    <div class="view__button">
+      <%= if @current_user != nil do %>
+        <h5><%= link "Comprar um número", to: Routes.rifa_party_path(@conn, :buy_a_number, @rifa_party) %></h5>
+      <% end %>
+    </div>
+  
+  
+    <div class="view__bottom">
+  
+      <%= if @current_user != nil do %>
+        <span><%= link "Editar", to: Routes.rifa_party_path(@conn, :edit, @rifa_party) %></span> |
+        <span><%= link "Delete", to: Routes.rifa_party_path(@conn, :delete, @rifa_party), method: :delete, data: [confirm: "Are you sure?"] %></span> |
+      <% end %>
+    
+      <span><%= link "Back", to: Routes.rifa_party_path(@conn, :index) %></span>
+  
+    </div>
+  
+  
+  </section>
+  

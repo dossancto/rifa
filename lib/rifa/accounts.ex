@@ -22,9 +22,48 @@ defmodule Rifa.Accounts do
       nil
 
   """
+
   def get_user_by_email(email) when is_binary(email) do
     Repo.get_by(User, email: email)
   end
+
+  def get_all_users do
+    query =
+      from(u in User,
+        select: [u.email, u.fullname, u.instagram, u.is_adm]
+      )
+
+    Repo.all(query)
+
+    |> Enum.map( fn (x) -> %User{
+      email: Enum.at(x, 0),
+      fullname: Enum.at(x, 1),
+      instagram: Enum.at(x, 2),
+      is_adm: Enum.at(x, 3)
+      } end)
+  end
+
+  # def to_map(%_module{} = struct, options) do
+  #   Map.from_struct(struct) |> convert_keys(options[:keys], options[:shallow] || false)
+  # end
+
+  def get_user_by_email!(email) do
+    query =
+      from(u in User,
+        where: u.email == ^email
+      )
+    Repo.all(query)
+    |> Enum.at(0)
+  end
+
+  def add_adm(form_user) do
+    user = get_user_by_email!(form_user["email"])
+    adm_user = Map.put(form_user, "is_adm", true)
+    user
+    |> User.adm_changeset(adm_user)
+    |> Repo.update()
+  end
+
 
   @doc """
   Gets a user by email and password.

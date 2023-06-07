@@ -1,0 +1,53 @@
+<div class="main__view-adm">
+
+  <div class="view__container">
+    <h1>Usuários</h1>
+    <div class="view__row">
+      <%= for user <- @users do %>
+      
+        <div class="view__card">
+          <ul>
+            <li><%= user.fullname %></li>
+            <li><%= user.email %></li>
+            <li><%= user.instagram %></li>
+            <li><%= user.is_adm %></li>
+          </ul>
+        </div>
+
+      <% end %>
+    </div>
+  
+  </div>
+  
+<div class="forms__container">
+      <.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :add_admin)} class = "register__form">
+        <div class="register__main">
+    
+          <h1>Registre-se</h1>
+      
+          
+          <%= if @changeset.action do %>
+            <div class="alert alert-danger">
+              <p>Oops, something went wrong! Please check the errors below.</p>
+            </div>
+          <% end %>
+            
+          <div class="register__component">
+      
+            <%= label f, :email %>
+            <%= email_input f, :email, required: true %>
+            <%= error_tag f, :email %>
+      
+          </div>
+        
+          <div>
+            <%= submit "Register" %>
+          </div>
+      
+          <p> <%= link "Log in", to: Routes.user_session_path(@conn, :new) %> </p>
+        </div>
+      </.form>
+  </div>
+</div>
+
+  

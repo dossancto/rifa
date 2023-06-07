@@ -1,6 +1,7 @@
 defmodule RifaWeb.RifaPartyController do
   use RifaWeb, :controller
 
+  alias Rifa.Accounts
   alias Rifa.Event
   alias Rifa.Event.RifaParty
 
@@ -43,6 +44,36 @@ defmodule RifaWeb.RifaPartyController do
       changeset: changeset,
       current_datetime: current_datetime,
       action: Routes.rifa_party_path(conn, :buy_rifa)
+    )
+  end
+
+  def show_admin(conn, %{"id" => id}) do
+    rifa_party = Event.get_rifa_party!(id)
+    numbers = Event.get_numbers_from_rifa(id)
+    # changeset = Event.change_rifa_parjy(rifa_party)
+    changeset = Event.change_number(%Event.Number{})
+
+    {:ok, current_datetime} = DateTime.now("Etc/UTC")
+
+    conn
+    |> render("show_admin.html",
+      rifa_party: rifa_party,
+      numbers: numbers,
+      changeset: changeset,
+      current_datetime: current_datetime,
+      action: Routes.rifa_party_path(conn, :buy_rifa)
+    )
+  end
+
+  def view_admin(conn, _params) do
+    changeset = Accounts.change_user_registration(%Accounts.User{})
+    users = Accounts.get_all_users
+    # IO.puts users
+
+    conn
+    |> render("view_admin.html",
+      users: users,
+      changeset: changeset
     )
   end
 
