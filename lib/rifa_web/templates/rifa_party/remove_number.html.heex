@@ -6,9 +6,7 @@
       Arraiá BG
     </h1>
   
-    <p>
-      Evento de arrecadação para a festa junina. <span>Escolha o seu número.</span>
-    </p>
+    <p><span>Escolha um número para remover.</span></p>
 
   </div>
 
@@ -19,15 +17,16 @@
       <%= for num <- 1..@rifa_party.max_numbers do %>
 
         <%= if Enum.any?(@numbers, fn ticket -> ticket.number == num end) do %>
-            <div class="cards__layout-items card__fixed">
-              <%= num %>
-            </div>
+            <%= link to: Routes.rifa_party_path(@conn, :delete_number, @rifa_party, number: num ), method: :delete, data: [confirm: "Tem certeza?"] do %>
+              <div class="cards__layout-items card__fixed">
+                  <%= num %>
+              </div>
+            <% end %>
+
         <% else %>
-          <a href="https://ig.me/m/gremio.chapaquente">
-            <div class="cards__layout-items">
+            <div class="cards__layout-items ">
               <%= num %>
             </div>
-          </a>
         <% end %>
 
       <% end %>
@@ -35,12 +34,11 @@
 
   </div>
 
+  <div class="view__button">
     <%= if @current_user != nil do %>
-      <div class="view__button">
-          <%= link "Comprar um número", to: Routes.rifa_party_path(@conn, :buy_a_number, @rifa_party), class: "styled_button" %>
-          <%= link "Remover um número", to: Routes.rifa_party_path(@conn, :remove_number, @rifa_party), class: "styled_button" %>
-      </div>
+      <h5><%= link "Comprar um número", to: Routes.rifa_party_path(@conn, :buy_a_number, @rifa_party), class: "styled_button" %></h5>
     <% end %>
+  </div>
 
 
   <div class="view__bottom">

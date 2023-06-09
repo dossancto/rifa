@@ -140,4 +140,30 @@ defmodule RifaWeb.RifaPartyController do
       action: Routes.rifa_party_path(conn, :buy_rifa)
     )
   end
+
+  def remove_number(conn, %{"id" => id}) do
+    rifa_party = Event.get_rifa_party!(id)
+    numbers = Event.get_numbers_from_rifa(id)
+    # changeset = Event.change_rifa_parjy(rifa_party)
+    changeset = Event.change_number(%Event.Number{})
+
+    {:ok, current_datetime} = DateTime.now("Etc/UTC")
+
+    conn
+    |> render("remove_number.html",
+      rifa_party: rifa_party,
+      numbers: numbers,
+      changeset: changeset,
+      current_datetime: current_datetime,
+      action: Routes.rifa_party_path(conn, :buy_rifa)
+    )
+  end
+
+  def delete_number(conn, %{"id" => id, "number" => number}) do
+    rifa_party = Event.get_rifa_party!(id)
+    {:ok, _rifa_party} = Event.remove_bought_number(id, number)
+
+    conn
+    |> redirect(to: Routes.rifa_party_path(conn, :show, rifa_party))
+  end
 end

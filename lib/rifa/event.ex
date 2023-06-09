@@ -31,6 +31,22 @@ defmodule Rifa.Event do
     Repo.all(query)
   end
 
+  def remove_bought_number(rifa_id, number) do
+    number = get_number_in_rifa(rifa_id, number)
+
+    Repo.delete(number)
+  end
+
+  def get_number_in_rifa(rifa_id, number) do
+    query =
+      from(n in Number,
+        where: n.rifa_numbers == ^rifa_id and n.number == ^number
+      )
+
+    Repo.all(query)
+    |> Enum.at(0)
+  end
+
   @doc """
   Gets a single rifa_party.
 

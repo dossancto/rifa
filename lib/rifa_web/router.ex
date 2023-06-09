@@ -29,7 +29,11 @@ defmodule RifaWeb.Router do
     get "/rifas/:id/buynumber", RifaPartyController, :buy_a_number
     get "/rifas/:id/show_admin", RifaPartyController, :show_admin
     get "/rifas/adm", RifaPartyController, :view_admin
+    get "/rifas/:id/removenumber", RifaPartyController, :remove_number
+
     post "/users/add_admin", UserRegistrationController, :add_admin
+
+    delete "/rifas/:id/deleteNumber", RifaPartyController, :delete_number
   end
 
   scope "/", RifaWeb do

@@ -63,7 +63,7 @@ main {
     cursor: not-allowed;
 }
 
-.view__button h5 a {
+.styled_button {
     border-radius: 0.4rem;
     color: #fff;
     background-color: var(--clr-theme);
