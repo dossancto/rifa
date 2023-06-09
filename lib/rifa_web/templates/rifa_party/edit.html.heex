@@ -2,4 +2,6 @@
 
 <%= render "form.html", Map.put(assigns, :action, Routes.rifa_party_path(@conn, :update, @rifa_party)) %>
 
-<span><%= link "Back", to: Routes.rifa_party_path(@conn, :index) %></span>
+<span><%= link "Back", to: Routes.rifa_party_path(@conn, :index) %></span> |
+<br>
+<span><%= link "Delete", to: Routes.rifa_party_path(@conn, :delete, @rifa_party), method: :delete, data: [confirm: "Are you sure?"] %></span>
