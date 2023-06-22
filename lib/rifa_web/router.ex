@@ -32,6 +32,7 @@ defmodule RifaWeb.Router do
     get "/rifas/:id/removenumber", RifaPartyController, :remove_number
 
     post "/users/add_admin", UserRegistrationController, :add_admin
+    get "/rifas/:id/stats", RifaPartyController, :number_stats
 
     delete "/rifas/:id/deleteNumber", RifaPartyController, :delete_number
   end

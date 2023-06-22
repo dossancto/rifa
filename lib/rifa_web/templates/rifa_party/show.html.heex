@@ -46,6 +46,7 @@
     <%= if @current_user != nil do %>
       <div class="view__button">
           <%= link "Comprar um número", to: Routes.rifa_party_path(@conn, :buy_a_number, @rifa_party), class: "styled_button" %>
+          <%= link "Estatísticas", to: Routes.rifa_party_path(@conn, :number_stats, @rifa_party), class: "styled_button" %>
           <%= link "Remover um número", to: Routes.rifa_party_path(@conn, :remove_number, @rifa_party), class: "styled_button" %>
       </div>
     <% end %>
