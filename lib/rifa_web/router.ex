@@ -40,6 +40,8 @@ defmodule RifaWeb.Router do
     post "/users/add_admin", UserRegistrationController, :add_admin
     get "/rifas/:id/stats", RifaPartyController, :number_stats
 
+    get "/rifas/sorteio", RifaPartyController, :sorteio
+
     delete "/rifas/:id/deleteNumber", RifaPartyController, :delete_number
   end
 
