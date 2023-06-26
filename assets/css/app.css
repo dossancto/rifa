@@ -5,6 +5,7 @@
 @import "./register.css";
 @import "./rifa.css";
 @import "./viewadm.css";
+@import "./sorteio.css";
 
 /* Alerts and form errors used by phx.new */
 .alert {

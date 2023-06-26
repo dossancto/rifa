@@ -178,7 +178,7 @@ defmodule RifaWeb.RifaPartyController do
       avaible: max_num - sold,
       porcentage: porcentage
     }
-    
+
   end
 
   def number_stats(conn, %{"id" => id}) do
@@ -205,4 +205,11 @@ defmodule RifaWeb.RifaPartyController do
       action: Routes.rifa_party_path(conn, :buy_rifa)
     )
   end
+
+  def sorteio(conn, _params) do
+    rifas = Event.list_rifas()
+
+    render(conn, "sorteio.html")
+  end
+
 end
