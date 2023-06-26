@@ -67,7 +67,7 @@ defmodule RifaWeb.RifaPartyController do
 
   def view_admin(conn, _params) do
     changeset = Accounts.change_user_registration(%Accounts.User{})
-    users = Accounts.get_all_users
+    users = Accounts.get_all_users()
     # IO.puts users
 
     conn
@@ -170,15 +170,15 @@ defmodule RifaWeb.RifaPartyController do
   defp get_number_infos(numbers, max_num) do
     sold = Enum.count(numbers)
 
-    porcentage = (sold * 100 / max_num)
-              |> :erlang.float_to_binary([decimals: 2])
+    porcentage =
+      (sold * 100 / max_num)
+      |> :erlang.float_to_binary(decimals: 2)
 
     %{
       sold: sold,
       avaible: max_num - sold,
       porcentage: porcentage
     }
-    
   end
 
   def number_stats(conn, %{"id" => id}) do
@@ -186,10 +186,11 @@ defmodule RifaWeb.RifaPartyController do
     numbers = Event.get_numbers_from_rifa(id)
     changeset = Event.change_number(%Event.Number{})
 
-    {_, grouped_numbers} = numbers
-                          |> Enum.group_by(&(&1.owner_instagram))
-                          |> Enum.reverse
-                          |> Enum.unzip
+    {_, grouped_numbers} =
+      numbers
+      |> Enum.group_by(& &1.owner_instagram)
+      |> Enum.reverse()
+      |> Enum.unzip()
 
     {:ok, current_datetime} = DateTime.now("Etc/UTC")
 
@@ -204,5 +205,16 @@ defmodule RifaWeb.RifaPartyController do
       infos: num_infos,
       action: Routes.rifa_party_path(conn, :buy_rifa)
     )
+  end
+
+  def sorteio(conn, %{"id" => id}) do
+    numbers = Event.get_numbers_from_rifa(id)
+
+    number =
+      numbers
+      |> Enum.random()
+
+    conn
+    |> json(%{number: number.number, owner: number.owner_instagram})
   end
 end
