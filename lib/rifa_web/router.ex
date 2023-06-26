@@ -22,6 +22,12 @@ defmodule RifaWeb.Router do
   end
 
   scope "/", RifaWeb do
+    pipe_through([:api])
+    
+    get "/rifas/:id/sorteio", RifaPartyController, :sorteio
+  end
+
+  scope "/", RifaWeb do
     pipe_through([:browser, :require_authenticated_user, :adm])
 
     resources("/rifas", RifaPartyController, except: [:index, :show])
