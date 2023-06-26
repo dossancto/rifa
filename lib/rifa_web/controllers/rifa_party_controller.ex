@@ -179,7 +179,6 @@ defmodule RifaWeb.RifaPartyController do
       avaible: max_num - sold,
       porcentage: porcentage
     }
-
   end
 
   def number_stats(conn, %{"id" => id}) do
@@ -219,10 +218,9 @@ defmodule RifaWeb.RifaPartyController do
     |> json(%{number: number.number, owner: number.owner_instagram})
   end
 
-  def sorteio(conn, _params) do
-    rifas = Event.list_rifas()
+  def sorteio(conn, %{"id" => id}) do
+    rifa_party = Event.get_rifa_party!(id)
 
-    render(conn, "sorteio.html")
+    render(conn, "sorteio.html", rifa_party: rifa_party)
   end
-
 end

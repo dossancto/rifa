@@ -15,7 +15,41 @@
       <h3>Número Sorteado:</h3>
       <p id="number"></p>
       <h3>Nome do Ganhador:</h3>
-      <p id="#owner"></p>
+      <p id="owner"></p>
     </div>
 
 </div>
+
+<script>
+    const btn_spinner = document.querySelector(".btn_spinner");
+    const close = document.querySelector(".close");
+    const spinner = document.querySelector("#spinner");
+
+    btn_spinner.addEventListener("click", async () => {
+        spinner.style.animationPlayState = "running";
+      
+        const rifaId = <%= @rifa_party.id %>
+        const res = await fetch(`/rifas/${rifaId}/makesorteio`)
+        const json = await res.json()
+
+        putData(json.number, json.owner)
+
+        setTimeout(() => {
+          openModal();
+          spinner.style.animationPlayState = "paused";
+        }, 5000);
+    });
+      
+    function openModal() {
+        document.querySelector("#modal").style.display = "block";
+    }
+
+    function putData(number, winner){
+      document.querySelector("#number").innerHTML = number;
+      document.querySelector("#owner").innerHTML = winner;
+    }
+      
+    close.addEventListener("click", () => {
+        document.querySelector("#modal").style.display = "none";
+    });
+</script>

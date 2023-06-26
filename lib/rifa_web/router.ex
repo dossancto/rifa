@@ -24,7 +24,7 @@ defmodule RifaWeb.Router do
   scope "/", RifaWeb do
     pipe_through([:api])
     
-    get "/rifas/:id/sorteio", RifaPartyController, :sorteio
+    get "/rifas/:id/makesorteio", RifaPartyController, :makesorteio
   end
 
   scope "/", RifaWeb do
@@ -40,7 +40,7 @@ defmodule RifaWeb.Router do
     post "/users/add_admin", UserRegistrationController, :add_admin
     get "/rifas/:id/stats", RifaPartyController, :number_stats
 
-    get "/rifas/sorteio", RifaPartyController, :sorteio
+    get "/rifas/:id/sorteio", RifaPartyController, :sorteio
 
     delete "/rifas/:id/deleteNumber", RifaPartyController, :delete_number
   end
