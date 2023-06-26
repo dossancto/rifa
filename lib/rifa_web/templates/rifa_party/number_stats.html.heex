@@ -1,0 +1,42 @@
+<section class="view_container">
+
+  <div class="view__header">
+    
+    <h1>
+      Arraiá BG
+    </h1>
+  
+  </div>
+    <h2>Números comprados: <%= @infos.sold  %></h2>
+    <h2>Números disponíveis: <%= @infos.avaible  %></h2>
+    <h2>Números vendidos (%): <%= @infos.porcentage %>%</h2>
+    <h2>Números total: <%= @rifa_party.max_numbers %></h2>
+
+      <h2>Compradores: </h2>
+      <%= for user_numbers <- @numbers do %>
+        <h3><%= (user_numbers |> Enum.at(0)).owner_instagram %></h3>
+        <%= for number <- user_numbers do %>
+          <p><%= number.number %></p>
+        <% end %>
+      <% end %>
+
+    <%= if @current_user != nil do %>
+      <div class="view__button">
+          <%= link "Comprar um número", to: Routes.rifa_party_path(@conn, :buy_a_number, @rifa_party), class: "styled_button" %>
+          <%= link "Remover um número", to: Routes.rifa_party_path(@conn, :remove_number, @rifa_party), class: "styled_button" %>
+      </div>
+    <% end %>
+
+
+  <div class="view__bottom">
+
+    <%= if @current_user != nil do %>
+      <span><%= link "Editar", to: Routes.rifa_party_path(@conn, :edit, @rifa_party) %></span> |
+    <% end %>
+  
+    <span><%= link "Back", to: Routes.rifa_party_path(@conn, :index) %></span>
+
+  </div>
+
+
+</section>

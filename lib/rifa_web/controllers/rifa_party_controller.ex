@@ -166,4 +166,43 @@ defmodule RifaWeb.RifaPartyController do
     conn
     |> redirect(to: Routes.rifa_party_path(conn, :show, rifa_party))
   end
+
+  defp get_number_infos(numbers, max_num) do
+    sold = Enum.count(numbers)
+
+    porcentage = (sold * 100 / max_num)
+              |> :erlang.float_to_binary([decimals: 2])
+
+    %{
+      sold: sold,
+      avaible: max_num - sold,
+      porcentage: porcentage
+    }
+    
+  end
+
+  def number_stats(conn, %{"id" => id}) do
+    rifa_party = Event.get_rifa_party!(id)
+    numbers = Event.get_numbers_from_rifa(id)
+    changeset = Event.change_number(%Event.Number{})
+
+    {_, grouped_numbers} = numbers
+                          |> Enum.group_by(&(&1.owner_instagram))
+                          |> Enum.reverse
+                          |> Enum.unzip
+
+    {:ok, current_datetime} = DateTime.now("Etc/UTC")
+
+    num_infos = get_number_infos(numbers, rifa_party.max_numbers)
+
+    conn
+    |> render("number_stats.html",
+      rifa_party: rifa_party,
+      numbers: grouped_numbers,
+      changeset: changeset,
+      current_datetime: current_datetime,
+      infos: num_infos,
+      action: Routes.rifa_party_path(conn, :buy_rifa)
+    )
+  end
 end
