@@ -22,6 +22,12 @@ defmodule RifaWeb.Router do
   end
 
   scope "/", RifaWeb do
+    pipe_through([:api])
+    
+    get "/rifas/:id/makesorteio", RifaPartyController, :makesorteio
+  end
+
+  scope "/", RifaWeb do
     pipe_through([:browser, :require_authenticated_user, :adm])
 
     resources("/rifas", RifaPartyController, except: [:index, :show])
@@ -33,6 +39,8 @@ defmodule RifaWeb.Router do
 
     post "/users/add_admin", UserRegistrationController, :add_admin
     get "/rifas/:id/stats", RifaPartyController, :number_stats
+
+    get "/rifas/:id/sorteio", RifaPartyController, :sorteio
 
     delete "/rifas/:id/deleteNumber", RifaPartyController, :delete_number
   end
